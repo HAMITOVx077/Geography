@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geography", "Geography\Geography.csproj", "{8733C006-EAF8-4C09-9E4B-B070EEECBAC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeographyLegacy", "GeographyLegacy\GeographyLegacy.csproj", "{6C35AFC8-EB41-479D-BEED-D97F59DC2741}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8733C006-EAF8-4C09-9E4B-B070EEECBAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8733C006-EAF8-4C09-9E4B-B070EEECBAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8733C006-EAF8-4C09-9E4B-B070EEECBAC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C35AFC8-EB41-479D-BEED-D97F59DC2741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C35AFC8-EB41-479D-BEED-D97F59DC2741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C35AFC8-EB41-479D-BEED-D97F59DC2741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C35AFC8-EB41-479D-BEED-D97F59DC2741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
