@@ -29,5 +29,11 @@ namespace Geography
                 Console.Write("Ошибка! Введите целое число: ");
             }
         }
+
+        public static string ReadString(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine() ?? "";
+        }
     }
 }

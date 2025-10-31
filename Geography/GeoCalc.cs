@@ -37,9 +37,9 @@ namespace Geography
         {
             double dx = x2 - x1;
             double dy = y2 - y1;
-            double a = Math.Atan2(dy, dx);
-            if (a < 0) a += 2 * Math.PI;
-            return a * 57.29577951308232;
+            double angle = Math.Atan2(dy, dx);
+            if (angle < 0) angle += 2 * Math.PI;
+            return angle * Constants.RadiansToDegrees;
         }
 
         // Модуль 2: Конвертер единиц
@@ -64,61 +64,70 @@ namespace Geography
             return value;
         }
 
-        public void DoEverything()
+        // Методы меню
+
+        public void ShowMenu()
         {
-            Console.WriteLine("Конвертер координат и единиц");
-            Console.WriteLine("1. Перевод градусов в радианы");
-            Console.WriteLine("2. Расчет расстояния");
-            Console.WriteLine("3. Определение азимута");
-            Console.WriteLine("4. Конвертер единиц");
+            while (true)
+            {
+                Console.WriteLine("\n=== Географический калькулятор ===");
+                Console.WriteLine("1. Градусы в радианы");
+                Console.WriteLine("2. Расстояние между точками");
+                Console.WriteLine("3. Азимут");
+                Console.WriteLine("4. Конвертер единиц");
+                Console.WriteLine("5. Выход");
 
-            string input = Console.ReadLine();
-            int choice = int.Parse(input);
+                int choice = InputHelper.ReadInt("Выберите опцию: ");
 
-            if (choice == 1)
-            {
-                Console.Write("Введите градусы: ");
-                double deg = double.Parse(Console.ReadLine());
-                double rad = DegreesToRadians(deg);
-                Console.WriteLine($"Результат: {rad}");
+                switch (choice)
+                {
+                    case 1: ConvertDegreesToRadians(); break;
+                    case 2: CalculateDistanceMenu(); break;
+                    case 3: CalculateAzimuthMenu(); break;
+                    case 4: ConvertUnitsMenu(); break;
+                    case 5: return;
+                    default: Console.WriteLine("Неверный выбор!"); break;
+                }
             }
-            else if (choice == 2)
-            {
-                Console.Write("Введите lat1: ");
-                double lat1 = double.Parse(Console.ReadLine());
-                Console.Write("Введите lon1: ");
-                double lon1 = double.Parse(Console.ReadLine());
-                Console.Write("Введите lat2: ");
-                double lat2 = double.Parse(Console.ReadLine());
-                Console.Write("Введите lon2: ");
-                double lon2 = double.Parse(Console.ReadLine());
-                double dist = CalculateDistance(lat1, lon1, lat2, lon2);
-                Console.WriteLine($"Расстояние: {dist} км");
-            }
-            else if (choice == 3)
-            {
-                Console.Write("Введите x1: ");
-                double x1 = double.Parse(Console.ReadLine());
-                Console.Write("Введите y1: ");
-                double y1 = double.Parse(Console.ReadLine());
-                Console.Write("Введите x2: ");
-                double x2 = double.Parse(Console.ReadLine());
-                Console.Write("Введите y2: ");
-                double y2 = double.Parse(Console.ReadLine());
-                double az = CalculateAzimuth(x1, y1, x2, y2);
-                Console.WriteLine($"Азимут: {az}°");
-            }
-            else if (choice == 4)
-            {
-                Console.Write("Введите значение: ");
-                double val = double.Parse(Console.ReadLine());
-                Console.Write("Из (km/miles/meters/feet/hectares/acres): ");
-                string from = Console.ReadLine();
-                Console.Write("В (km/miles/meters/feet/hectares/acres): ");
-                string to = Console.ReadLine();
-                double result = ConvertDistance(val, from, to);
-                Console.WriteLine($"Результат: {result}");
-            }
+        }
+
+        private void ConvertDegreesToRadians()
+        {
+            double degrees = InputHelper.ReadDouble("Введите градусы: ");
+            double radians = DegreesToRadians(degrees);
+            Console.WriteLine($"{degrees}° = {radians:F6} рад");
+        }
+
+        private void CalculateDistanceMenu()
+        {
+            double lat1 = InputHelper.ReadDouble("Широта точки 1: ");
+            double lon1 = InputHelper.ReadDouble("Долгота точки 1: ");
+            double lat2 = InputHelper.ReadDouble("Широта точки 2: ");
+            double lon2 = InputHelper.ReadDouble("Долгота точки 2: ");
+
+            double distance = CalculateDistance(lat1, lon1, lat2, lon2);
+            Console.WriteLine($"Расстояние: {distance:F2} км");
+        }
+
+        private void CalculateAzimuthMenu()
+        {
+            double x1 = InputHelper.ReadDouble("X1: ");
+            double y1 = InputHelper.ReadDouble("Y1: ");
+            double x2 = InputHelper.ReadDouble("X2: ");
+            double y2 = InputHelper.ReadDouble("Y2: ");
+
+            double azimuth = CalculateAzimuth(x1, y1, x2, y2);
+            Console.WriteLine($"Азимут: {azimuth:F2}°");
+        }
+
+        private void ConvertUnitsMenu()
+        {
+            double value = InputHelper.ReadDouble("Значение: ");
+            string from = InputHelper.ReadString("Из (km/miles/meters/feet/hectares/acres): ");
+            string to = InputHelper.ReadString("В (km/miles/meters/feet/hectares/acres): ");
+
+            double result = ConvertDistance(value, from, to);
+            Console.WriteLine($"Результат: {result:F4}");
         }
     }
 }
