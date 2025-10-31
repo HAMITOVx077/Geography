@@ -1,6 +1,4 @@
-﻿using Geography;
-
-namespace GeographyLegacy
+﻿namespace GeographyConsoleApp
 {
     internal class Program
     {
