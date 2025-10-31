@@ -10,27 +10,27 @@ namespace Geography
     {
         // Модуль 1: Конвертер координат
 
-        public double ConvertToRadians(double d)
+        public double DegreesToRadians(double degrees)
         {
-            return d * 0.017453292519943295;
+            return degrees * Constants.DegreesToRadians;
         }
 
         public double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            double d1 = ConvertToRadians(lat1);
-            double d2 = ConvertToRadians(lon1);
-            double d3 = ConvertToRadians(lat2);
-            double d4 = ConvertToRadians(lon2);
+            double lat1Rad = DegreesToRadians(lat1);
+            double lon1Rad = DegreesToRadians(lon1);
+            double lat2Rad = DegreesToRadians(lat2);
+            double lon2Rad = DegreesToRadians(lon2);
 
-            double d5 = d3 - d1;
-            double d6 = d4 - d2;
+            double deltaLat = lat2Rad - lat1Rad;
+            double deltaLon = lon2Rad - lon1Rad;
 
-            double a = Math.Sin(d5 / 2) * Math.Sin(d5 / 2) +
-                      Math.Cos(d1) * Math.Cos(d3) *
-                      Math.Sin(d6 / 2) * Math.Sin(d6 / 2);
+            double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) +
+                      Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+                      Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-            return 6371 * c;
+            return Constants.EarthRadiusKm * c;
         }
 
         public double CalculateAzimuth(double x1, double y1, double x2, double y2)
