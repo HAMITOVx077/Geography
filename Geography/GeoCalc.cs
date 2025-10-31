@@ -46,20 +46,22 @@ namespace Geography
 
         public double ConvertDistance(double value, string from, string to)
         {
-            if (from == "km" && to == "miles")
-                return value * 0.621371;
-            else if (from == "miles" && to == "km")
-                return value * 1.60934;
-            else if (from == "meters" && to == "feet")
-                return value * 3.28084;
-            else if (from == "feet" && to == "meters")
-                return value * 0.3048;
-            else if (from == "hectares" && to == "acres")
-                return value * 2.47105;
-            else if (from == "acres" && to == "hectares")
-                return value * 0.404686;
-            else
-                return value;
+            var conversions = new Dictionary<string, Dictionary<string, double>>
+            {
+                ["km"] = new Dictionary<string, double> { ["miles"] = Constants.KilometersToMiles },
+                ["miles"] = new Dictionary<string, double> { ["km"] = Constants.MilesToKilometers },
+                ["meters"] = new Dictionary<string, double> { ["feet"] = Constants.MetersToFeet },
+                ["feet"] = new Dictionary<string, double> { ["meters"] = Constants.FeetToMeters },
+                ["hectares"] = new Dictionary<string, double> { ["acres"] = Constants.HectaresToAcres },
+                ["acres"] = new Dictionary<string, double> { ["hectares"] = Constants.AcresToHectares }
+            };
+
+            if (conversions.ContainsKey(from) && conversions[from].ContainsKey(to))
+            {
+                return value * conversions[from][to];
+            }
+
+            return value;
         }
 
         public void DoEverything()
@@ -77,7 +79,7 @@ namespace Geography
             {
                 Console.Write("Введите градусы: ");
                 double deg = double.Parse(Console.ReadLine());
-                double rad = ConvertToRadians(deg);
+                double rad = DegreesToRadians(deg);
                 Console.WriteLine($"Результат: {rad}");
             }
             else if (choice == 2)
